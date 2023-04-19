@@ -1,0 +1,44 @@
+<html>
+    <head>
+     <script type="text/javascript">
+        function Hello(name,num2){
+            document.write(name + " is " + " studies in " + num2)
+        }
+
+        function concatenate(first, last){
+            var full;
+            full = first + last;
+            return  full;
+        }
+        function secondfunction() {
+            var result;
+            result = concatenate('kunal' , 'panfer');
+            document.write(result);
+        }
+
+        function multiply(first , last){
+            var T;
+            T = first * last;
+            return  T;
+        }
+        function mfunction() {
+            var result;
+            result = multiply('7' , '8');
+            document.write(result);
+        }
+     </script>
+    </head>
+    <body>
+        <script type="text/javascript">
+        function Step() {
+            document.write("hello world");
+         }
+         </script>
+        <form>
+            <input type="button" onclick = "Step()">
+            <input type="button" onclick="Hello('kp',8 )" value="2">
+            <input type="button" onclick="secondfunction()" value="3">
+            <input type="button" onclick="mfunction()" value="4">
+        </form>
+    </body>
+</html>
