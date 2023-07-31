@@ -26,6 +26,19 @@
             result = multiply('7' , '8');
             document.write(result);
         }
+
+       // function validate() {
+         //   all validation goes here
+            
+           // return either true or false
+        //}
+        function over() {
+            document.write("mouse over")
+        }
+        function out() {
+            document.write("mouse out")
+        }
+
      </script>
     </head>
     <body>
@@ -35,10 +48,31 @@
          }
          </script>
         <form>
-            <input type="button" onclick = "Step()">
+            <input type="button"  onclick = "Step()">
+            
             <input type="button" onclick="Hello('kp',8 )" value="2">
-            <input type="button" onclick="secondfunction()" value="3">
-            <input type="button" onclick="mfunction()" value="4">
+            <input type="button"  onclick="secondfunction()" value="3">
+            <input type="button"  onclick="mfunction()" value="4">
         </form>
+        <form method="POST" action="js2.html" onsubmit="return validate()">
+            
+        <input type="submit" value="submit" />
+        </form>
+        
+        <textarea></textarea>
+        <button>Speak</button>
+        <script type="text/javascript">
+        button = document.querySelector("button");
+        text = document.querySelector("textarea");
+        button.addEventListener("click", () =>{
+            let utterance = new SpeechSynthesisUtterance(text.value);
+            speechSynthesis.speak(utterance);
+        });
+         </script>
+        <br><br><br><br><br><br>
+        <div onmouseover="over()" onmouseout="out()">
+            <p> hello there</p>
+        </div>
+
     </body>
 </html>
