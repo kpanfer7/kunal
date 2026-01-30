@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Never Have I Ever – Adults</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: radial-gradient(circle, #1e1e1e, #000);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  color: #ff4d4d;
+}
+
+.card {
+  background: #111;
+  padding: 25px;
+  border-radius: 12px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin: 20px 0;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #ff4d4d;
+  color: white;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.switch {
+  position: relative;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #555;
+  border-radius: 26px;
+  transition: .4s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #ff4d4d;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+</style>
+</head>
+
+<body>
+
+<h1>🍻 Never Have I Ever</h1>
+
+<div class="switch-container">
+  <span>Casual</span>
+  <label class="switch">
+    <input type="checkbox" id="modeSwitch">
+    <span class="slider"></span>
+  </label>
+  <span>Crush Mode</span>
+</div>
+
+<div class="card" id="question">
+  Tap Next to start 😄
+</div>
+
+<button onclick="nextQuestion()">Next</button>
+
+<script>
+let lastQuestion = "";
+
+const casual = [
+"Never have I ever ignored a message on purpose",
+"Never have I ever lied about being on the way",
+"Never have I ever muted a family group chat",
+"Never have I ever judged someone instantly",
+"Never have I ever hoped plans would cancel",
+"Never have I ever spent money and regretted it",
+"Never have I ever said kal se pakka and failed",
+"Never have I ever pretended to be busy",
+"Never have I ever Googled something basic",
+"Never have I ever blamed traffic for being late",
+"Never have I ever procrastinated badly",
+"Never have I ever avoided responsibility",
+"Never have I ever cancelled plans last minute",
+"Never have I ever blamed stress for my mood",
+"Never have I ever slept through an alarm",
+"Never have I ever ignored advice I needed",
+"Never have I ever stayed quiet to avoid drama",
+"Never have I ever re-read old chats",
+"Never have I ever pretended to listen",
+"Never have I ever forgotten why I entered a room",
+"Never have I ever acted confident but felt lost",
+"Never have I ever blamed technology",
+"Never have I ever zoned out mid conversation",
+"Never have I ever overreacted unnecessarily",
+"Never have I ever said yes but meant no",
+"Never have I ever avoided phone calls",
+"Never have I ever ignored reminders",
+"Never have I ever regretted overthinking",
+"Never have I ever eaten just out of boredom",
+"Never have I ever delayed important work",
+"Never have I ever avoided confrontation",
+"Never have I ever complained too much",
+"Never have I ever blamed sleep schedule",
+"Never have I ever underestimated myself",
+"Never have I ever pretended to know something",
+"Never have I ever overplanned and underdone",
+"Never have I ever stayed up too late unnecessarily",
+"Never have I ever been late knowingly",
+"Never have I ever ignored my own advice",
+"Never have I ever blamed luck",
+"Never have I ever procrastinated despite free time",
+"Never have I ever forgotten an important date",
+"Never have I ever avoided meetings",
+"Never have I ever said I’ll do it later",
+"Never have I ever felt lazy without reason",
+"Never have I ever lost motivation suddenly",
+"Never have I ever skipped exercise intentionally",
+"Never have I ever delayed replies",
+"Never have I ever complained about being busy",
+"Never have I ever blamed mood swings",
+"Never have I ever wasted time knowingly",
+"Never have I ever avoided responsibility calls",
+"Never have I ever multitasked badly",
+"Never have I ever ignored deadlines",
+"Never have I ever postponed decisions",
+"Never have I ever avoided change",
+"Never have I ever overthought simple things",
+"Never have I ever doubted myself unnecessarily",
+"Never have I ever pretended everything is fine",
+"Never have I ever been mentally tired",
+"Never have I ever underestimated effort",
+"Never have I ever ignored important signs",
+"Never have I ever delayed hard choices",
+"Never have I ever avoided growth",
+"Never have I ever overcomplicated life",
+"Never have I ever ignored my instincts",
+"Never have I ever avoided accountability",
+"Never have I ever blamed circumstances",
+"Never have I ever delayed improvement",
+"Never have I ever felt stuck",
+"Never have I ever complained without acting",
+"Never have I ever delayed self care",
+"Never have I ever felt unmotivated suddenly",
+"Never have I ever avoided responsibility talks",
+"Never have I ever ignored inner voice",
+"Never have I ever stayed in comfort zone",
+"Never have I ever postponed reality",
+"Never have I ever avoided self reflection",
+"Never have I ever ignored priorities",
+"Never have I ever delayed progress",
+"Never have I ever avoided hard truths",
+"Never have I ever wasted potential",
+"Never have I ever delayed important change",
+"Never have I ever avoided discipline",
+"Never have I ever blamed timing",
+"Never have I ever ignored my limits",
+"Never have I ever avoided necessary effort",
+"Never have I ever chosen easy over right",
+"Never have I ever delayed responsibility again"
+];
+
+const crush = [
+"Never have I ever had a crush on someone unexpected",
+"Never have I ever hidden a crush",
+"Never have I ever overthought a text",
+"Never have I ever waited for a reply",
+"Never have I ever liked attention secretly",
+"Never have I ever felt jealous but stayed calm",
+"Never have I ever pretended not to care",
+"Never have I ever ignored someone intentionally",
+"Never have I ever replayed a moment in my head",
+"Never have I ever denied liking someone",
+"Never have I ever missed obvious hints",
+"Never have I ever enjoyed late night chats",
+"Never have I ever been scared of attachment",
+"Never have I ever stalked someone online",
+"Never have I ever felt confused about feelings",
+"Never have I ever liked someone silently",
+"Never have I ever avoided expressing feelings",
+"Never have I ever felt butterflies unexpectedly",
+"Never have I ever overanalysed replies",
+"Never have I ever smiled at messages",
+"Never have I ever checked phone repeatedly",
+"Never have I ever hoped for a text",
+"Never have I ever liked someone secretly",
+"Never have I ever imagined scenarios",
+"Never have I ever reread conversations",
+"Never have I ever felt shy suddenly",
+"Never have I ever ignored logic for feelings",
+"Never have I ever enjoyed teasing",
+"Never have I ever avoided eye contact",
+"Never have I ever felt awkward around someone",
+"Never have I ever tried to impress subtly",
+"Never have I ever changed tone while texting",
+"Never have I ever smiled for no reason",
+"Never have I ever felt nervous replying",
+"Never have I ever delayed reply intentionally",
+"Never have I ever tried acting normal",
+"Never have I ever overthought silence",
+"Never have I ever enjoyed attention secretly",
+"Never have I ever felt mixed signals",
+"Never have I ever denied obvious feelings",
+"Never have I ever tried to seem uninterested",
+"Never have I ever felt attachment too fast",
+"Never have I ever waited longer than needed",
+"Never have I ever hoped someone notices",
+"Never have I ever liked indirect flirting",
+"Never have I ever enjoyed emotional closeness",
+"Never have I ever avoided confessing",
+"Never have I ever felt confused by signals",
+"Never have I ever imagined conversations",
+"Never have I ever liked late replies secretly",
+"Never have I ever checked last seen",
+"Never have I ever felt jealous quietly",
+"Never have I ever enjoyed subtle compliments",
+"Never have I ever hidden excitement",
+"Never have I ever avoided questions",
+"Never have I ever overthought reactions",
+"Never have I ever enjoyed playful banter",
+"Never have I ever missed hints twice",
+"Never have I ever waited for validation",
+"Never have I ever felt butterflies again",
+"Never have I ever enjoyed emotional tension",
+"Never have I ever denied attachment",
+"Never have I ever felt confused again",
+"Never have I ever enjoyed subtle attention",
+"Never have I ever hoped feelings are mutual",
+"Never have I ever enjoyed teasing messages",
+"Never have I ever waited silently",
+"Never have I ever liked indirect care",
+"Never have I ever felt attached quietly",
+"Never have I ever hidden feelings well",
+"Never have I ever enjoyed meaningful talks",
+"Never have I ever felt shy admitting",
+"Never have I ever avoided honest talk",
+"Never have I ever overthought tone",
+"Never have I ever hoped for clarity",
+"Never have I ever enjoyed emotional closeness again",
+"Never have I ever liked someone unknowingly",
+"Never have I ever felt unexpected attachment",
+"Never have I ever denied emotions internally",
+"Never have I ever enjoyed subtle affection",
+"Never have I ever waited longer silently",
+"Never have I ever felt confused but happy",
+"Never have I ever enjoyed harmless flirting",
+"Never have I ever hidden excitement again",
+"Never have I ever felt shy smiling",
+"Never have I ever hoped things progress"
+];
+
+function nextQuestion() {
+  const mode = document.getElementById("modeSwitch").checked;
+  const list = mode ? crush : casual;
+
+  let q;
+  do {
+    q = list[Math.floor(Math.random() * list.length)];
+  } while (q === lastQuestion && list.length > 1);
+
+  lastQuestion = q;
+  document.getElementById("question").innerText = q;
+}
+</script>
+
+</body>
+</html>
